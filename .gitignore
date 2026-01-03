@@ -1,0 +1,43 @@
+# --- IDE & OS (Fisiere generate de editor/sistem) ---
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- DOCKER ---
+# Ignoram config-uri locale docker care suprascriu setarile default
+docker-compose.override.yml
+
+# --- BACKEND (Java / Spring Boot / Gradle) ---
+backend/.gradle/
+backend/build/
+backend/out/
+backend/bin/
+# Log-uri
+backend/*.log
+# Ignoram fisierele de environment locale (daca ai creat profile specifice)
+backend/**/application-dev.yml
+backend/**/application-local.yml
+backend/**/application-secrets.yml
+
+# --- FRONTEND (React / Vite / Node) ---
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/coverage/
+# Log-uri NPM/Yarn
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+# Variabile de mediu (Foarte Important!)
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# --- ALTELE ---
+# Daca folosesti Redis local dump
+dump.rdb
