@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/api-docs/**", "/actuator/**", "/webjars/**").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/auth/**", "/api/auth/**").permitAll()
 
                         /* ---- CUSTOMER – doar citire ---- */
                         // Folosim hasAnyAuthority pentru a potrivi exact "CUSTOMER" sau "ADMIN" din JWT
@@ -67,7 +67,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("*") // vite dev
+                        .allowedOrigins("http://localhost:3000", "http://localhost:5173") // vite dev
                         .allowedMethods("*")
                         .allowedHeaders("*")
                         .allowCredentials(false);

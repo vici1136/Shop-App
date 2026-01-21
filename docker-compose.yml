@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.8"
 services:
   postgres:
     image: postgres:16
@@ -18,14 +18,31 @@ services:
       - "6379:6379"
 
   backend:
-    build: ./backend
+    build: ./backend/shop
+    container_name: shop-backend
     ports:
       - "8080:8080"
     depends_on:
       - postgres
       - redis
     environment:
-      SPRING_PROFILES_ACTIVE: docker
+      # Conectare la baza de date (folosind numele serviciului 'postgres')
+      - DB_URL=jdbc:postgresql://postgres:5432/shop_db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      
+      # Conectare la Redis (folosind numele serviciului 'redis')
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      
+      # !!! AICI ERA PROBLEMA - Variabilele JWT !!!
+      # Acestea trebuie sa fie exact cum le asteapta Java
+      - JWT_SECRET=CheieSecretaFoarteLungaSiSiguraPentruLocalHost123456
+      - JWT_EXPIRATION=86400000
+      
+      # Uneori Spring cere variabilele scrise cu puncte, le punem si pe acelea preventiv:
+      - jwt.secret=CheieSecretaFoarteLungaSiSiguraPentruLocalHost123456
+      - jwt.expiration=86400000
 
 volumes:
   pg_data:
